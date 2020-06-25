@@ -15,8 +15,8 @@
 #
 
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_KERNEL := true
-TARGET_NO_RECOVERY := true
+#TARGET_NO_KERNEL := true
+#TARGET_NO_RECOVERY := true
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -55,6 +55,24 @@ TARGET_SCREEN_DENSITY := 213
 
 TARGET_ENABLE_MEDIADRM_64 := true
 
+# TWRP
+RECOVERY_VARIANT := twrp
+TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+TARGET_USERIMAGES_USE_EXT4 := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
+TW_THEME := landscape_mdpi
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXCLUDE_SUPERSU := true
+TW_EXCLUDE_MTP := true
+TW_HAS_NO_BOOT_PARTITION := true
+TW_HAS_NO_RECOVERY_PARTITION := true
+TW_NO_SCREEN_TIMEOUT := true
+TW_NO_BATT_PERCENT := true
 
 # Wifi
 BOARD_WLAN_DEVICE := bcmdhd
@@ -68,3 +86,7 @@ USE_CAMERA_STUB := true
 BOARD_SEPOLICY_DIRS := device/moukafih/raspi4/sepolicy
 
 DEVICE_MANIFEST_FILE := device/moukafih/raspi4/manifest.xml
+
+TARGET_PREBUILT_KERNEL := kernel/rpi/arch/arm/boot/zImage
+
+recoveryramdisk: $(call build-recoveryramdisk)
