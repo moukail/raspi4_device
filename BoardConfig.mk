@@ -15,7 +15,7 @@
 #
 
 TARGET_NO_BOOTLOADER := true
-#TARGET_NO_KERNEL := true
+TARGET_NO_KERNEL := true
 #TARGET_NO_RECOVERY := true
 
 TARGET_ARCH := arm
@@ -87,6 +87,6 @@ BOARD_SEPOLICY_DIRS := device/moukafih/raspi4/sepolicy
 
 DEVICE_MANIFEST_FILE := device/moukafih/raspi4/manifest.xml
 
-TARGET_PREBUILT_KERNEL := kernel/rpi/arch/arm/boot/zImage
+TARGET_PREBUILT_KERNEL := kernel/arpi/arch/arm/boot/zImage
 
-recoveryramdisk: $(call build-recoveryramdisk)
+#recoveryramdisk: $(call build-recoveryramdisk)
