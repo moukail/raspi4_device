@@ -23,11 +23,19 @@ PRODUCT_BRAND := moukafih
 PRODUCT_MANUFACTURER := ARPi
 PRODUCT_MODEL := Raspberry Pi 4
 
-include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
+include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 # Boot Animation
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
+    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip \
+    $(LOCAL_PATH)/gapps/common/etc/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
+    $(LOCAL_PATH)/gapps/common/etc/permissions/privapp-permissions-atv.xml:system/etc/permissions/privapp-permissions-atv.xml \
+    $(LOCAL_PATH)/gapps/common/etc/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
+    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google.xml:system/etc/sysconfig/google.xml \
+    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
+    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
+    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
+    $(LOCAL_PATH)/gapps.sh:system/etc/gapps.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.drm.mode.force=1280x720 \
@@ -36,13 +44,37 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609 \
     wifi.interface=wlan0
 
+# gapps
+PRODUCT_PACKAGES += \
+    Tubesky \
+    PrebuiltGmsCorePano \
+    ConfigUpdater \
+    GoogleExtServices \
+    GoogleExtShared \
+    GoogleBackupTransport \
+    GoogleContactsSyncAdapter \
+    GoogleOneTimeInitializer \
+    GooglePartnerSetup \
+    GoogleServicesFramework
+
+#    SetupWizard \
+    PrebuiltGmsCore \
+    Phonesky \
+    GoogleRestore \
+    GooglePackageInstaller \
+    GoogleFeedback \
+    GmsCoreSetupPrebuilt \
+    CarrierSetup \
+    AndroidMigratePrebuilt \
+    GoogleTTS \
+    GoogleCalendarSyncAdapter
+
 # application packages
 PRODUCT_PACKAGES += \
-    PrimeVideo \
-    Netflix \
     TvSampleLeanbackLauncher \
     LeanbackSampleApp \
     Spotify
+#    PrimeVideo Netflix
 
 # system packages
 PRODUCT_PACKAGES += \

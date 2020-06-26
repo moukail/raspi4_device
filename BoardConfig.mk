@@ -55,7 +55,22 @@ TARGET_SCREEN_DENSITY := 213
 
 TARGET_ENABLE_MEDIADRM_64 := true
 
+# Recovery
+TARGET_RECOVERY_FSTAB := device/brcm/rpi3/twrp.fstab
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
+TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_565"
+
 # TWRP
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/rpi_backlight/brightness"
+TW_EXCLUDE_MTP := true
+TW_EXCLUDE_TWRPAPP := true
+TW_INCLUDE_CRYPTO := true
+TW_NO_BATT_PERCENT := true
+TW_NO_REBOOT_BOOTLOADER := true
+TW_NO_REBOOT_RECOVERY := true
+TW_NO_SCREEN_TIMEOUT := true
+TW_THEME := landscape_hdpi
+
 RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -64,15 +79,11 @@ BOARD_SUPPRESS_SECURE_ERASE := true
 TARGET_USERIMAGES_USE_EXT4 := true
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
-TW_THEME := landscape_mdpi
 TW_INTERNAL_STORAGE_PATH := "/data/media/0"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXCLUDE_SUPERSU := true
-TW_EXCLUDE_MTP := true
 TW_HAS_NO_BOOT_PARTITION := true
 TW_HAS_NO_RECOVERY_PARTITION := true
-TW_NO_SCREEN_TIMEOUT := true
-TW_NO_BATT_PERCENT := true
 
 # Wifi
 BOARD_WLAN_DEVICE := bcmdhd
@@ -89,4 +100,4 @@ DEVICE_MANIFEST_FILE := device/moukafih/raspi4/manifest.xml
 
 TARGET_PREBUILT_KERNEL := kernel/arpi/arch/arm/boot/zImage
 
-#recoveryramdisk: $(call build-recoveryramdisk)
+#recovery-ramdisk: $(call build-recoveryramdisk)
