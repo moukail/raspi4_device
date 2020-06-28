@@ -1,12 +1,15 @@
-#!/sbin/ash
+#!/system/bin/sh
 
 echo '###############################################################################################################'
 echo '##################################################       GAPPS       ##########################################'
 echo '###############################################################################################################'
+#mount -o remount,rw /
+
 cd /system/media
 ls -hal
-unzip open_gapps.zip
-ls -hal
-cd open_gapps
-ls
-. installer.sh
+#unzip open_gapps.zip
+#ls -hal
+#cd open_gapps
+#ls
+#sh ./installer.sh
+#cd .. && rm -rf open_gapps

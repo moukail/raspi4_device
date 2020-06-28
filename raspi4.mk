@@ -35,7 +35,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gapps/common/etc/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
     $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
     $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
-    $(LOCAL_PATH)/gapps.sh:system/etc/gapps.sh
+    $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.drm.mode.force=1280x720 \
@@ -45,7 +45,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
 # gapps
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     Tubesky \
     PrebuiltGmsCorePano \
     ConfigUpdater \
@@ -73,7 +73,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     TvSampleLeanbackLauncher \
     LeanbackSampleApp \
-    Spotify
+    Spotify \
+    Firefox
 #    PrimeVideo Netflix
 
 # system packages
