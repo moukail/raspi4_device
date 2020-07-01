@@ -35,10 +35,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/google/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
     $(LOCAL_PATH)/google/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
     $(LOCAL_PATH)/google/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
-    $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh
+    $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh \
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.drm.mode.force=1280x720 \
     gralloc.drm.device=/dev/dri/card0 \
     gralloc.drm.kms=/dev/dri/card1 \
     ro.opengles.version=196609 \
@@ -49,30 +48,30 @@ PRODUCT_PACKAGES += \
     GoogleServicesFramework \
     PrebuiltGmsCorePano \
     Tubesky \
-    TVLauncher
-
-    #AtvWidget \
+    Katniss \
+    WebViewGoogle \
+    LeanbackIme \
+    AtvWidget \
     Backdrop \
-    GoogleCalendarSyncAdapter \
-    GoogleContactsSyncAdapter \
+    talkback \
+    ConfigUpdater \
+    AndroidTVCoreServices \
+    GoogleBackupTransport \
+    AndroidMediaShell \
+    RemoteControlService \
+    GooglePartnerSetup \
+    RecommendationsService \
+    GooglePackageInstaller \
     GoogleExtShared \
     LandscapeWallpaper \
-    LeanbackIme \
-    talkback \
-    WebViewGoogle \
-    AndroidMediaShell \
-    AndroidTVCoreServices \
-    ConfigUpdater \
-    GoogleBackupTransport \
     GoogleExtServices \
     GoogleOneTimeInitializer \
-    GooglePackageInstaller \
-    GooglePartnerSetup \
-    Katniss \
-    RecommendationsService \
-    SetupWraithPrebuilt \
-    TV \
-    TVRecommendations
+    GoogleCalendarSyncAdapter \
+    GoogleContactsSyncAdapter \
+    AndroidTVCoreServices \
+    TVRecommendations \
+    TVLauncher \
+    TV
 
 # system packages
 PRODUCT_PACKAGES += \

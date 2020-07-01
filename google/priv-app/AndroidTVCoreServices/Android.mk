@@ -12,7 +12,4 @@ LOCAL_PACKAGE_NAME := AndroidTVCoreServices
 LOCAL_PRIVILEGED_MODULE := true
 LOCAL_DEX_PREOPT := true
 
-# The priv-app folder
-#TARGET_OUT_DATA_APPS_PRIVILEGED := $(TARGET_OUT_DATA)/priv-app
-
 include $(BUILD_PREBUILT)
