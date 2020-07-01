@@ -1,22 +1,6 @@
-#
-# Copyright 2020 Android-RPi Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := true
-#TARGET_NO_RECOVERY := true
+TARGET_NO_RECOVERY := true
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -53,37 +37,7 @@ USE_OPENGL_RENDERER := true
 TARGET_USES_HWC2 := true
 TARGET_SCREEN_DENSITY := 213
 
-TARGET_ENABLE_MEDIADRM_64 := true
-
-# Recovery
-TARGET_RECOVERY_FSTAB := device/brcm/rpi3/twrp.fstab
-TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
-TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_565"
-
-# TWRP
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/rpi_backlight/brightness"
-TW_EXCLUDE_MTP := true
-TW_EXCLUDE_TWRPAPP := true
-TW_INCLUDE_CRYPTO := true
-TW_NO_BATT_PERCENT := true
-TW_NO_REBOOT_BOOTLOADER := true
-TW_NO_REBOOT_RECOVERY := true
-TW_NO_SCREEN_TIMEOUT := true
-TW_THEME := landscape_hdpi
-
-RECOVERY_VARIANT := twrp
-TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
-BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_SUPPRESS_SECURE_ERASE := true
-TARGET_USERIMAGES_USE_EXT4 := true
-RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
-TW_INTERNAL_STORAGE_PATH := "/data/media/0"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXCLUDE_SUPERSU := true
-TW_HAS_NO_BOOT_PARTITION := true
-TW_HAS_NO_RECOVERY_PARTITION := true
+#TARGET_ENABLE_MEDIADRM_64 := true
 
 # Wifi
 BOARD_WLAN_DEVICE := bcmdhd
@@ -98,6 +52,4 @@ BOARD_SEPOLICY_DIRS := device/moukafih/raspi4/sepolicy
 
 DEVICE_MANIFEST_FILE := device/moukafih/raspi4/manifest.xml
 
-TARGET_PREBUILT_KERNEL := kernel/arpi/arch/arm/boot/zImage
-
-#recovery-ramdisk: $(call build-recoveryramdisk)
+#TARGET_PREBUILT_KERNEL := kernel/arpi/arch/arm/boot/zImage

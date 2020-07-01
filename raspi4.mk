@@ -28,13 +28,13 @@ include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 # Boot Animation
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip \
-    $(LOCAL_PATH)/gapps/common/etc/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
-    $(LOCAL_PATH)/gapps/common/etc/permissions/privapp-permissions-atv.xml:system/etc/permissions/privapp-permissions-atv.xml \
-    $(LOCAL_PATH)/gapps/common/etc/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
-    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google.xml:system/etc/sysconfig/google.xml \
-    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
-    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
-    $(LOCAL_PATH)/gapps/common/etc/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
+    $(LOCAL_PATH)/google/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
+    $(LOCAL_PATH)/google/permissions/privapp-permissions-atv.xml:system/etc/permissions/privapp-permissions-atv.xml \
+    $(LOCAL_PATH)/google/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
+    $(LOCAL_PATH)/google/sysconfig/google.xml:system/etc/sysconfig/google.xml \
+    $(LOCAL_PATH)/google/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
+    $(LOCAL_PATH)/google/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
+    $(LOCAL_PATH)/google/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
     $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -44,38 +44,35 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609 \
     wifi.interface=wlan0
 
-# gapps
-#PRODUCT_PACKAGES += \
-    Tubesky \
-    PrebuiltGmsCorePano \
-    ConfigUpdater \
-    GoogleExtServices \
-    GoogleExtShared \
-    GoogleBackupTransport \
-    GoogleContactsSyncAdapter \
-    GoogleOneTimeInitializer \
-    GooglePartnerSetup \
-    GoogleServicesFramework
-
-#    SetupWizard \
-    PrebuiltGmsCore \
-    Phonesky \
-    GoogleRestore \
-    GooglePackageInstaller \
-    GoogleFeedback \
-    GmsCoreSetupPrebuilt \
-    CarrierSetup \
-    AndroidMigratePrebuilt \
-    GoogleTTS \
-    GoogleCalendarSyncAdapter
-
 # application packages
 PRODUCT_PACKAGES += \
-    TvSampleLeanbackLauncher \
-    LeanbackSampleApp \
-    Spotify \
-    Firefox
-#    PrimeVideo Netflix
+    GoogleServicesFramework \
+    PrebuiltGmsCorePano \
+    Tubesky \
+    TVLauncher
+
+    #AtvWidget \
+    Backdrop \
+    GoogleCalendarSyncAdapter \
+    GoogleContactsSyncAdapter \
+    GoogleExtShared \
+    LandscapeWallpaper \
+    LeanbackIme \
+    talkback \
+    WebViewGoogle \
+    AndroidMediaShell \
+    AndroidTVCoreServices \
+    ConfigUpdater \
+    GoogleBackupTransport \
+    GoogleExtServices \
+    GoogleOneTimeInitializer \
+    GooglePackageInstaller \
+    GooglePartnerSetup \
+    Katniss \
+    RecommendationsService \
+    SetupWraithPrebuilt \
+    TV \
+    TVRecommendations
 
 # system packages
 PRODUCT_PACKAGES += \
