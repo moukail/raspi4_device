@@ -17,6 +17,8 @@ on fs
     mount_all /vendor/etc/fstab.rpi4
 
 on post-fs
+    # Set supported opengles version
+    #setprop ro.hardware.hwcomposer drm
     #exec - root root system -- /vendor/bin/init.gapps.sh
     start init-myservice-sh
 
@@ -41,6 +43,7 @@ on zygote-start
 on boot
     setprop net.dns1 8.8.8.8
     setprop net.dns2 8.8.4.4
+    mkdir /persist/drm 0770 system system
 
 # fake some battery state
     setprop status.battery.state Slow

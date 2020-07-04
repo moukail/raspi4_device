@@ -37,11 +37,32 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/google/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
     $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh \
 
+#    ro.build.selinux=1
 PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
     gralloc.drm.device=/dev/dri/card0 \
     gralloc.drm.kms=/dev/dri/card1 \
-    ro.opengles.version=196609 \
-    wifi.interface=wlan0
+    ro.opengles.version=196609
+
+ #   debug.drm.mode.force=1280x720 \
+ #   ro.opa.eligible_device=true \
+ #   ro.control_privapp_permissions=log \
+ #   ro.error.receiver.system.apps=com.google.android.gms \
+ #   ril.function.dataonly=1 \
+ #   ro.build.characteristics=tv \
+ #   ro.rfkilldisabled=1 \
+
+# Build.prop overrides
+#PRODUCT_PROPERTY_OVERRIDES += \
+	dalvik.vm.dex2oat-swap=false \
+	ro.product.first_api_level=22 \
+	ro.com.google.clientidbase=android-pearlyn \
+	ro.sf.lcd_density=320
+
+# Memory optimizations
+#PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.qti.am.reschedule_service=true \
+    ro.vendor.qti.sys.fw.bservice_enable=true
 
 # application packages
 PRODUCT_PACKAGES += \
@@ -71,8 +92,25 @@ PRODUCT_PACKAGES += \
     AndroidTVCoreServices \
     TVRecommendations \
     TVLauncher \
+    YouTubeLeanback \
+    SssAuthbridgePrebuilt \
+    SetupWraithPrebuilt \
+    Overscan \
+    External Storage \
+    GoogleTTS \
+    DrmProvider \
     TV
 
+# application packages
+#PRODUCT_PACKAGES += \
+    GooglePermissionController \
+    NetworkStackPermissionStub \
+    LeanbackLauncher \
+    TestApp \
+    Downloads \
+
+#hdmi_cec.rpi4
+#libmm-omxcore
 # system packages
 PRODUCT_PACKAGES += \
     libGLES_mesa \
@@ -85,6 +123,17 @@ PRODUCT_PACKAGES += \
     wifilogd \
     wpa_supplicant \
     wpa_supplicant.conf
+
+# Bluetooth
+#PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-service \
+    android.hardware.bluetooth@1.0-service.rc \
+    android.hardware.bluetooth@1.0-impl \
+    libbt-vendor
+
+# Prevent hwui from overloading hwcomposer.drm: remove when drm_hwc is fixed
+#PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.use_partial_updates=0
 
 # hardware/interfaces
 PRODUCT_PACKAGES += \
@@ -104,11 +153,21 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
     android.hardware.wifi@1.0-service \
     android.hardware.configstore@1.1-service \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service \
-    vndservicemanager
+    vndservicemanager \
+    move_widevine_data.sh
+
+ #   android.hardware.bluetooth@1.0-service \
+ #   android.hardware.bluetooth@1.0-service.rc \
+ #   android.hardware.bluetooth@1.0-impl \
+
 
 # system configurations
+#    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
+#    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
+    #frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml
+#    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+#    $(LOCAL_PATH)/firmware/brcm/BCM4345C0.hcd:root/lib/firmware/brcm/BCM4345C0.hcd \
+
 PRODUCT_COPY_FILES := \
     hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
@@ -129,6 +188,36 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:root/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt \
     $(PRODUCT_COPY_FILES)
+
+# DRM HAL
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
+    android.hardware.drm@1.0-service \
+    android.hardware.drm@1.2-service.clearkey \
+    android.hardware.drm@1.2-service.widevine
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    media.mediadrmservice.enable=true
+
+# widevine
+PRODUCT_COPY_FILES := \
+    $(LOCAL_PATH)/widevine/bin/hw/android.hardware.drm@1.0-service:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.drm@1.01-service \
+    $(LOCAL_PATH)/widevine/bin/hw/android.hardware.drm@1.2-service.clearkey:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.drm@1.21-service.clearkey \
+    $(LOCAL_PATH)/widevine/bin/hw/android.hardware.drm@1.2-service.widevine:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.drm@1.2-service.widevine \
+    $(LOCAL_PATH)/widevine/android.hardware.drm@1.2-service.widevine.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.drm@1.2-service.widevine.rc \
+    $(LOCAL_PATH)/widevine/lib/libdrmfs.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdrmfs.so \
+    $(LOCAL_PATH)/widevine/lib/libdrmtime.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdrmtime.so \
+    $(LOCAL_PATH)/widevine/lib/libdrmutils.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdrmutils.so \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b00:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b00 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b01:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b01 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b02:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b02 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b03:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b03 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b04:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b04 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b05:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b05 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b06:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b06 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.b07:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.b07 \
+    $(LOCAL_PATH)/widevine/firmware/widevine.mdt:$(TARGET_COPY_OUT_VENDOR)/firmware/widevine.mdt
 
 # media configurations
 PRODUCT_COPY_FILES := \
