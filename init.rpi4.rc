@@ -16,17 +16,12 @@ on init
 on fs
     mount_all /vendor/etc/fstab.rpi4
 
-on post-fs
-    # Set supported opengles version
-    #setprop ro.hardware.hwcomposer drm
-    #exec - root root system -- /vendor/bin/init.gapps.sh
-    start init-myservice-sh
-
 on post-fs-data
     # Bluetooth
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
@@ -43,7 +38,6 @@ on zygote-start
 on boot
     setprop net.dns1 8.8.8.8
     setprop net.dns2 8.8.4.4
-    mkdir /persist/drm 0770 system system
 
 # fake some battery state
     setprop status.battery.state Slow
@@ -63,15 +57,5 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     interface android.hardware.wifi.supplicant@1.2::ISupplicant default
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
-    disabled
-    oneshot
-
-#on property:sys.boot_completed=1
-#    start init-myservice-sh
-
-service init-myservice-sh /vendor/bin/init.myscript.sh
-    class main
-    user root
-    group root system
     disabled
     oneshot
