@@ -27,10 +27,18 @@ include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 # Boot Animation
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
+    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip \
+    $(LOCAL_PATH)/google/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
+    $(LOCAL_PATH)/google/permissions/privapp-permissions-atv.xml:system/etc/permissions/privapp-permissions-atv.xml \
+    $(LOCAL_PATH)/google/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
+    $(LOCAL_PATH)/google/sysconfig/google.xml:system/etc/sysconfig/google.xml \
+    $(LOCAL_PATH)/google/sysconfig/google_build.xml:system/etc/sysconfig/google_build.xml \
+    $(LOCAL_PATH)/google/sysconfig/google_atv.xml:system/etc/sysconfig/google_atv.xml \
+    $(LOCAL_PATH)/google/sysconfig/google-hiddenapi-package-whitelist.xml:system/etc/sysconfig/google-hiddenapi-package-whitelist.xml \
+    $(LOCAL_PATH)/init.myscript.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.myscript.sh
 
+# debug.drm.mode.force=1280x720
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.drm.mode.force=1280x720 \
     gralloc.drm.device=/dev/dri/card0 \
     gralloc.drm.kms=/dev/dri/card1 \
     ro.opengles.version=196609 \
@@ -38,8 +46,52 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # application packages
 PRODUCT_PACKAGES += \
-    LeanbackSampleApp \
-    TvSampleLeanbackLauncher
+    AndroidMediaShell \
+    AndroidPlatformServicesTV \
+    AndroidTVCoreServices \
+    AtvCustomization \
+    AtvRemoteService \
+    ConfigUpdater \
+    GoogleBackupTransport \
+    GoogleOneTimeInitializer \
+    GooglePartnerSetup \
+    SetupWraithPrebuilt \
+    GoogleServicesFramework \
+    PrebuiltGmsCorePano \
+    Tubesky \
+    TV \
+    TVLauncher \
+    TVRecommendations \
+    Katniss \
+    Overscan \
+    RecommendationsService \
+    RemoteControlService
+
+#    GoogleExtServices \    GooglePackageInstaller \    LeanbackLauncher \
+
+# application packages
+PRODUCT_PACKAGES += \
+    AtvWidget \
+    Backdrop \
+    GoogleCalendarSyncAdapter \
+    GoogleContactsSyncAdapter \
+    GoogleExtShared \
+    LandscapeWallpaper \
+    LeanbackIme \
+    talkback \
+    WebViewGoogle
+
+# application packages
+#PRODUCT_PACKAGES += \
+    GooglePermissionController \
+    NetworkStackPermissionStub \
+    TestApp \
+    YouTubeLeanback \
+    SssAuthbridgePrebuilt \
+    External Storage \
+    GoogleTTS \
+    DrmProvider \
+    Downloads
 
 # system packages
 PRODUCT_PACKAGES += \
