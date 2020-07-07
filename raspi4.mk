@@ -13,9 +13,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+PRODUCT_IS_ATV := true
 
-USE_OEM_TV_APP := true
-$(call inherit-product, device/google/atv/products/atv_base.mk)
+PRODUCT_PACKAGES := \
+    TvProvider \
+    TvSettings \
+    SettingsIntelligence \
+    tv_input.default
+
+PRODUCT_COPY_FILES := \
+    device/google/atv/permissions/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
+
+DEVICE_PACKAGE_OVERLAYS := \
+    device/google/atv/overlay
+
+# To enable access to /dev/dvb*
+BOARD_SEPOLICY_DIRS += device/google/atv/sepolicy
+
+# From build/target/product/core_base.mk
+PRODUCT_PACKAGES += \
+    UserDictionaryProvider \
+    libkeystore \
+
+# From build/target/product/core.mk
+PRODUCT_PACKAGES += \
+    BasicDreams \
+    CalendarProvider \
+    CaptivePortalLogin \
+    CertInstaller \
+    ExternalStorageProvider \
+    FusedLocation \
+    InputDevices \
+    KeyChain \
+    PacProcessor \
+    PrintSpooler \
+    ProxyHandler \
+    SharedStorageBackup \
+    VpnDialogs \
+    com.android.media.tv.remoteprovider \
+    PackageInstaller
+
+# From build/target/product/generic_no_telephony.mk
+PRODUCT_PACKAGES += \
+    Bluetooth \
+    SystemUI \
+    librs_jni \
+    audio.primary.default \
+    clatd \
+    clatd.conf \
+    local_time.default \
+    screenrecord
+
+# Copy .kl file for generic voice remotes
+PRODUCT_COPY_FILES += \
+    device/google/atv/Generic.kl:system/usr/keylayout/Generic.kl \
+    device/google/atv/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
+    frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf
+
+# Enable frame-exact AV sync
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.media.avsync=true
+
+$(call inherit-product-if-exists, frameworks/base/data/sounds/AudioTv.mk)
+$(call inherit-product-if-exists, frameworks/base/data/fonts/fonts.mk)
+$(call inherit-product-if-exists, external/google-fonts/dancing-script/fonts.mk)
+$(call inherit-product-if-exists, external/google-fonts/carrois-gothic-sc/fonts.mk)
+$(call inherit-product-if-exists, external/google-fonts/coming-soon/fonts.mk)
+$(call inherit-product-if-exists, external/google-fonts/cutive-mono/fonts.mk)
+$(call inherit-product-if-exists, external/noto-fonts/fonts.mk)
+$(call inherit-product-if-exists, external/roboto-fonts/fonts.mk)
+$(call inherit-product-if-exists, external/hyphenation-patterns/patterns.mk)
+$(call inherit-product-if-exists, frameworks/base/data/keyboards/keyboards.mk)
+#$(call inherit-product-if-exists, frameworks/webview/chromium/chromium.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
 
 PRODUCT_NAME := raspi4
 PRODUCT_DEVICE := raspi4
