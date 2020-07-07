@@ -13,67 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-PRODUCT_IS_ATV := true
-
-PRODUCT_PACKAGES := \
-    TvProvider \
-    TvSettings \
-    SettingsIntelligence \
-    tv_input.default
-
-PRODUCT_COPY_FILES := \
-    device/google/atv/permissions/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
-
-DEVICE_PACKAGE_OVERLAYS := \
-    device/google/atv/overlay
-
-# To enable access to /dev/dvb*
-BOARD_SEPOLICY_DIRS += device/google/atv/sepolicy
-
-# From build/target/product/core_base.mk
-PRODUCT_PACKAGES += \
-    UserDictionaryProvider \
-    libkeystore \
-
-# From build/target/product/core.mk
-PRODUCT_PACKAGES += \
-    BasicDreams \
-    CalendarProvider \
-    CaptivePortalLogin \
-    CertInstaller \
-    ExternalStorageProvider \
-    FusedLocation \
-    InputDevices \
-    KeyChain \
-    PacProcessor \
-    PrintSpooler \
-    ProxyHandler \
-    SharedStorageBackup \
-    VpnDialogs \
-    com.android.media.tv.remoteprovider \
-    PackageInstaller
-
-# From build/target/product/generic_no_telephony.mk
-PRODUCT_PACKAGES += \
-    Bluetooth \
-    SystemUI \
-    librs_jni \
-    audio.primary.default \
-    clatd \
-    clatd.conf \
-    local_time.default \
-    screenrecord
-
-# Copy .kl file for generic voice remotes
-PRODUCT_COPY_FILES += \
-    device/google/atv/Generic.kl:system/usr/keylayout/Generic.kl \
-    device/google/atv/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
-    frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf
-
-# Enable frame-exact AV sync
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.media.avsync=true
-
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioTv.mk)
 $(call inherit-product-if-exists, frameworks/base/data/fonts/fonts.mk)
 $(call inherit-product-if-exists, external/google-fonts/dancing-script/fonts.mk)
@@ -86,6 +25,9 @@ $(call inherit-product-if-exists, external/hyphenation-patterns/patterns.mk)
 $(call inherit-product-if-exists, frameworks/base/data/keyboards/keyboards.mk)
 #$(call inherit-product-if-exists, frameworks/webview/chromium/chromium.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 PRODUCT_NAME := raspi4
 PRODUCT_DEVICE := raspi4
@@ -93,57 +35,31 @@ PRODUCT_BRAND := moukafih
 PRODUCT_MANUFACTURER := ARPi
 PRODUCT_MODEL := Raspberry Pi 4
 
-include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
+PRODUCT_IS_ATV := true
+PRODUCT_AAPT_PREF_CONFIG := tvdpi
+PRODUCT_CHARACTERISTICS := tv
 
-# Boot Animation
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
-
+# Enable frame-exact AV sync
 PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.media.avsync=true \
     debug.drm.mode.force=1280x720 \
     gralloc.drm.device=/dev/dri/card0 \
     gralloc.drm.kms=/dev/dri/card1 \
     ro.opengles.version=196609 \
     wifi.interface=wlan0
 
-# application packages
-PRODUCT_PACKAGES += \
-    LeanbackSampleApp \
-    TvSampleLeanbackLauncher
+# Boot Animation
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip
 
-# system packages
-PRODUCT_PACKAGES += \
-    libGLES_mesa \
-    gralloc.rpi4 \
-    memtrack.rpi4 \
-    gatekeeper.rpi4 \
-    audio.primary.rpi4 \
-    audio.usb.default \
-    wificond \
-    wifilogd \
-    wpa_supplicant \
-    wpa_supplicant.conf
+PRODUCT_COPY_FILES := \
+    device/google/atv/permissions/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml
 
-# hardware/interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-service.rpi4 \
-    android.hardware.graphics.mapper@2.0-impl.rpi4 \
-    android.hardware.graphics.composer@2.1-service.rpi4 \
-    android.hardware.camera.provider@2.4-external-service.rpi4 \
-    android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl \
-    android.hardware.audio@2.0-service \
-    android.hardware.keymaster@3.0-impl \
-    android.hardware.keymaster@3.0-service \
-    android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    android.hardware.health@2.0-service \
-    android.hardware.health@2.0-impl \
-    android.hardware.wifi@1.0-service \
-    android.hardware.configstore@1.1-service \
-    vndservicemanager
+# Copy .kl file for generic voice remotes
+PRODUCT_COPY_FILES += \
+    device/google/atv/Generic.kl:system/usr/keylayout/Generic.kl \
+    device/google/atv/permissions/com.google.android.tv.installed.xml:system/etc/permissions/com.google.android.tv.installed.xml \
+    frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf
 
 # system configurations
 PRODUCT_COPY_FILES := \
@@ -181,11 +97,91 @@ PRODUCT_COPY_FILES := \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml \
     $(LOCAL_PATH)/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml \
     frameworks/base/data/sounds/effects/ogg/Effect_Tick_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Effect_Tick.ogg \
-    frameworks/base/data/sounds/effects/ogg/camera_click_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/camera_click.ogg \
     $(PRODUCT_COPY_FILES)
 
-DEVICE_PACKAGE_OVERLAYS := device/moukafih/raspi4/overlay
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
-PRODUCT_CHARACTERISTICS := tv
+DEVICE_PACKAGE_OVERLAYS := \
+    device/google/atv/overlay
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+DEVICE_PACKAGE_OVERLAYS := device/moukafih/raspi4/overlay
+
+# To enable access to /dev/dvb*
+BOARD_SEPOLICY_DIRS += device/google/atv/sepolicy
+
+PRODUCT_PACKAGES := \
+    TvProvider \
+    TvSettings \
+    SettingsIntelligence \
+    tv_input.default
+
+# From build/target/product/core_base.mk
+PRODUCT_PACKAGES += \
+    UserDictionaryProvider \
+    libkeystore \
+
+# From build/target/product/core.mk
+PRODUCT_PACKAGES += \
+    BasicDreams \
+    CalendarProvider \
+    CaptivePortalLogin \
+    CertInstaller \
+    ExternalStorageProvider \
+    FusedLocation \
+    InputDevices \
+    KeyChain \
+    PacProcessor \
+    PrintSpooler \
+    ProxyHandler \
+    SharedStorageBackup \
+    VpnDialogs \
+    com.android.media.tv.remoteprovider \
+    PackageInstaller
+
+# From build/target/product/generic_no_telephony.mk
+PRODUCT_PACKAGES += \
+    Bluetooth \
+    SystemUI \
+    librs_jni \
+    audio.primary.default \
+    clatd \
+    clatd.conf \
+    local_time.default \
+    screenrecord
+
+# system packages
+PRODUCT_PACKAGES += \
+    libGLES_mesa \
+    gralloc.rpi4 \
+    memtrack.rpi4 \
+    gatekeeper.rpi4 \
+    audio.primary.rpi4 \
+    audio.usb.default \
+    wificond \
+    wifilogd \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
+# hardware/interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@2.0-service.rpi4 \
+    android.hardware.graphics.mapper@2.0-impl.rpi4 \
+    android.hardware.graphics.composer@2.1-service.rpi4 \
+    android.hardware.camera.provider@2.4-external-service.rpi4 \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio@2.0-service \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
+    android.hardware.health@2.0-service \
+    android.hardware.health@2.0-impl \
+    android.hardware.wifi@1.0-service \
+    android.hardware.configstore@1.1-service \
+    vndservicemanager
+
+# application packages
+PRODUCT_PACKAGES += \
+    LeanbackSampleApp \
+    TvSampleLeanbackLauncher
