@@ -184,4 +184,4 @@ PRODUCT_PACKAGES += \
 # application packages
 PRODUCT_PACKAGES += \
     LeanbackSampleApp \
-    TvSampleLeanbackLauncher
+    TVLauncher
