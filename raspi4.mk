@@ -16,6 +16,7 @@
 
 USE_OEM_TV_APP := true
 $(call inherit-product, device/google/atv/products/atv_base.mk)
+$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
 
 PRODUCT_NAME := raspi4
 PRODUCT_DEVICE := raspi4
@@ -24,6 +25,9 @@ PRODUCT_MANUFACTURER := ARPi
 PRODUCT_MODEL := Raspberry Pi 4
 
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
+
+GAPPS_VARIANT := tvstock
+GAPPS_PRODUCT_PACKAGES += Chrome
 
 # Boot Animation
 PRODUCT_COPY_FILES += \
@@ -36,7 +40,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609 \
     wifi.interface=wlan0
 
-# application packages
+# application packages\
 PRODUCT_PACKAGES += \
     LeanbackSampleApp \
     TvSampleLeanbackLauncher
